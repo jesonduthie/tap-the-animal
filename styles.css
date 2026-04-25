@@ -23,6 +23,7 @@ body {
     radial-gradient(circle at 16% 14%, rgba(76, 142, 217, 0.18), transparent 28%),
     radial-gradient(circle at 82% 16%, rgba(242, 184, 75, 0.2), transparent 26%),
     linear-gradient(135deg, #f7f1e6 0%, #eaf6f1 100%);
+  overflow-x: hidden;
 }
 
 button {
@@ -30,6 +31,7 @@ button {
 }
 
 .app {
+  position: relative;
   width: min(980px, 100%);
   min-height: 100vh;
   margin: 0 auto;
@@ -82,10 +84,12 @@ h1 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(14px, 3vw, 26px);
+  width: min(720px, 100%);
+  margin: 0 auto;
 }
 
 .animal-card {
-  min-height: clamp(160px, 32vw, 260px);
+  min-height: clamp(210px, 42vw, 340px);
   border: 0;
   border-radius: 8px;
   color: var(--ink);
@@ -107,6 +111,7 @@ h1 {
 .animal-card.correct {
   background: #dff5e7;
   box-shadow: 0 18px 36px rgba(78, 170, 111, 0.24);
+  animation: happy-bounce 650ms ease both;
 }
 
 .animal-card.missed {
@@ -114,7 +119,7 @@ h1 {
 }
 
 .animal-emoji {
-  font-size: clamp(4.6rem, 14vw, 9rem);
+  font-size: clamp(5.4rem, 18vw, 11rem);
   line-height: 1;
   filter: drop-shadow(0 8px 0 rgba(38, 50, 56, 0.08));
 }
@@ -150,10 +155,21 @@ h1 {
   font-size: 2rem;
 }
 
-@media (min-width: 780px) {
-  .animal-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
+.celebration {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.sparkle {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  color: var(--color);
+  font-size: clamp(1.8rem, 6vw, 3.8rem);
+  animation: sparkle-pop 900ms ease-out forwards;
 }
 
 @media (max-width: 520px) {
@@ -162,6 +178,40 @@ h1 {
   }
 
   .animal-card {
-    min-height: 150px;
+    min-height: 190px;
+  }
+}
+
+@keyframes happy-bounce {
+  0% {
+    transform: scale(1);
+  }
+
+  35% {
+    transform: scale(1.08) rotate(-2deg);
+  }
+
+  70% {
+    transform: scale(0.99) rotate(1deg);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes sparkle-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -30%) scale(0.4) rotate(0deg);
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -160%) scale(1.2) rotate(24deg);
   }
 }
